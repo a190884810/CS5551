@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<head>
+    <meta http-equiv="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"
+            type="application/javascript"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Title</title>
+</head>
+
+
+
+<body class="bodybox">
+<H2 style="text-align: center; color: whitesmoke">Weather</H2>
+<hr>
+
+<div class="weatherbox" ng-app="weather" ng-controller="weatherctrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group  " style="width: 200px; ">
+                    <label for="state name">State Name:</label>
+                    <input type="text" class="form-control" style="width: 90%" id="statename" placeholder="MO">
+                </div>
+                <div class="form-group" style="width: 200px;">
+                    <label for="city name">City Name:</label>
+                    <input type="text" class="form-control" style="width: 90%" id="cityname" placeholder="Kansas City" >
+                </div>
+                <button type="submit" class="btn btn-default" id="btn" ng-click="getWeather()">Show Weather</button>
+            </div>
+
+
+
+            <div class="col-8">
+                <div class="weatherModuler">
+                    <p class="carpenter" ng-bind-html="cweather" ng-style="{float:'left'}"></p>
+                    <div class="currentIcon" ng-bind-html="currentIcon" ng-style="{float:'left',width:'200px'}"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <!--<div class="container">-->
+    <div ng-repeat="x in weatherHours" class="weatherModule">
+        {{x.currentWeather}}<br/>
+        {{x.currentD}}<br/>
+        {{x.currentforecast}}<br/>
+        <img src={{x.currentIcon}}>
+    </div>
+</div>
+
+<script>
+    angular.module('weather', [])
+        .controller('weatherctrl', function($scope, $http,$sce,$window) {
+            //var url1='http://api.wunderground.com/api/4bbbc25f4f5946dd/conditions/q/'+$scope.statename+'/'+cn+'.json'
+            $scope.getWeather = function () {
+                var sn = angular.element(document.getElementById('statename')).val(); //add 'angular.element' in angularjs for getting element value
+                var cns = angular.element(document.getElementById('cityname')).val();
+                console.log(cns);
+                console.log(sn);
+                $http.get('http://api.wunderground.com/api/4bbbc25f4f5946dd/conditions/q/' + sn + '/' + cns + '.json').then(function onSuccess(response) {
+                    // console.log('http://api.wunderground.com/api/4bbbc25f4f5946dd/conditions/q/'+sn+'/'+cns+'.json');
+                    console.log(response);
+                    var temp = response.data.current_observation.temp_f;
+                    var icon = response.data.current_observation.icon_url;
+                    var weather = response.data.current_observation.weather;
+                    var wind = response.data.current_observation.wind_mph;
+                    var humidity = response.data.current_observation.relative_humidity;
+                    var visibility = response.data.current_observation.visibility_km
+                    console.log(temp);
+                    $scope.cweather = $sce.trustAsHtml(
+                        "<b>Current temperature:</b>" + temp + " &deg; F <br><b>weather:</b> " + weather + "  <br><b>wind:</b> " + wind + " mph<br><b>humidity:</b> " + humidity + "<br><b>visibility:</b> " + visibility + " km");
+                    $scope.currentIcon = $sce.trustAsHtml("<img src='" + icon + "'/>");
+                }).catch(function onError() {
+                    $window.alert("No cities match your search query! Please check your input!(include whitespace if needed!)");
+                })
+
+                $http.get('http://api.wunderground.com/api/36b799dc821d5836/forecast/q/'+sn+'/'+cns+'.json').then(function (response1) {
+                    console.log(response1);
+                    hours = response1.data.forecast.txt_forecast.forecastday;
+                    var myArray = [];
+                    for (var i = 1; i < hours.length && i < 6; i++) {
+                        var period = hours[i].period;
+                        var icon = hours[i].icon_url;
+                        var fcttext_metric = hours[i].fcttext_metric;
+                        var title = hours[i].title;
+                        var fcttext = hours[i].fcttext;
+                        myArray.push({
+                            currentWeather: "Forecast period: " + period  + " title: " + title ,
+                            currentD: "Description: " + fcttext,
+                            currentforecast: " Forecast_metric:" + fcttext_metric,
+                            currentIcon: icon
+                        })
+                        $scope.weatherHours = myArray;
+                    }
+
+
+                })
+
+            }
+        })
+</script>
+</body>
+</html>

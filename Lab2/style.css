@@ -1,0 +1,38 @@
+hr {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 5px dotted #BCBBBB;
+}
+.weatherModule {
+    display: inline-block;
+    background: #f2f2f2;
+    height: auto;
+    width: auto;
+    border: 1px dashed #ccc;
+    padding: 1em;
+    opacity:0.50;
+}
+
+.weatherModuler {
+    background: #f2f2f2;
+    height: 190px;
+    width: 350px;
+    border: 1px dashed #ccc;
+    padding: 1em;
+    opacity:0.50;
+}
+
+.weatherbox {
+    margin: 0 auto;
+    border: #0f0f0f 5px;
+    height:1300px ;
+    width: 800px;
+}
+.bodybox{
+    background-image: url("https://github.com/scvnq/demo1/blob/master/lab2/lab2/imgdir/Screen%20Shot%202019-02-02%20at%2012.46.47%20PM.png?raw=true") ;
+
+}
+.weatherM
+{opacity:0.50;
+}
