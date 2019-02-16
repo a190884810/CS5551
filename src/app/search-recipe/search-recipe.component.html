@@ -1,0 +1,64 @@
+<div class="parent-container">
+  <div class="child-container">
+    <h2><b>Check the calories information of the food!!
+    </b></h2><br>
+    <form>
+      <div class="form-group">
+        <div class="form-group col-lg-6 col-lg-offset-3 input-group">
+          <input type="text" class="form-control" placeholder="food name" #recipe>
+          <span class="input-group-addon">-</span>
+
+        </div><br>
+        <button type="button" class="btn btn primary col-lg-2 col-lg-offset-5 " (click)="getVenues()">Go</button>
+
+      </div>
+    </form>
+  </div>
+</div><br><br>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="panel panel-default col-6">
+        <div class="panel-heading"><b>calories information</b></div>
+        <div class="panel-body">
+          <div *ngFor="let item of itemList" class="list-group-item clearfix">
+            <div class="pull-left">
+              <a class="list-group-item-heading"><b>Name:</b>  {{ item.name }}  </a><br>
+              <a  class="list-group-item-text"><b>Weight:</b>  {{ item.weight }} <b>Grams</b></a><br>
+              <a  class="list-group-item-text"><b>calories:</b>   {{ item.calories }}  <b>Cal</b></a><br>
+
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="panel panel-default col-6">
+        <div class="panel-heading"><b>Speak it out!</b></div>
+        <div class="panel-body">
+
+          <!--<div *ngFor="let venue of venueList" class="list-group-item clearfix">-->
+          <div class="pull-left" id='here'>
+            <div *ngFor="let item of itemList" class="list-group-item clearfix">
+              <audio controls>
+
+                <source src='{{item.txt}}' type="audio/ogg">
+                <source src='{{item.txt}}' type="audio/mpeg">
+
+              </audio>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
