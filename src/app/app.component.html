@@ -1,11 +1,22 @@
-<div class="image">
-<app-header></app-header>
-
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <router-outlet></router-outlet>
+﻿<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+              <alert></alert> <a href="http://localhost:4200/ ">Click me To switch</a>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<!-- credits -->
+<div class="text-center">
+    <p>
+        <a href="https://www.google.com/">DIAOLEILAOMAO</a>
+        <a href="http://jasonwatmore.com/post/2018/05/16/angular-6-user-registration-and-login-example-tutorial" target="_top">Angular 6 User Registration and Login Example & Tutorial</a>
+    </p>
+    <p>
+        <a href="http://jasonwatmore.com" target="_top">JasonWatmore.com</a>
+    </p>
 </div>
