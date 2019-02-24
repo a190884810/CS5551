@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title text-center>Classfy-api & another API</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+ 
+  <form id="appPage-form3" class="list">
+    <label class="item item-input item-stacked-label" id="appPage-input6">
+      <input type="text" placeholder="key word" #keyword>
+    </label>
+  </form>
+  <button ion-button small outline (click)="getInfo()">Search</button>
+  <div id="appPage-markdown1" class="show-list-numbers-and-dots">
+    <p style="color:#000000;">
+      <strong>Google Knowledge Graph Search API</strong>
+    </p>
+  </div>
+  <div *ngFor="let item of itemList" class="list-group-item clearfix">
+    <div class="pull-left">
+      <img src="{{item.icon}}"><br>
+      <a class="list-group-item-text"><b>Description:</b> {{ item.name }} </a><br>
+      <a class="list-group-item-text"><b>Details:</b> {{ item.des }} </a><br>
+
+    </div>
+  </div>
+  <div id="appPage-markdown2" class="show-list-numbers-and-dots">
+    <p style="color:#000000;">
+      <strong>Text to speech API</strong>
+    </p>
+    <div *ngFor="let item of itemList" class="list-group-item clearfix">
+
+      <audio controls>
+        <source src="{{item.txt}}" type="audio/ogg">
+        <source src="{{item.txt}}" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+</ion-content>
